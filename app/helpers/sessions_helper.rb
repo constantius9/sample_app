@@ -19,7 +19,7 @@ module SessionsHelper
 
   def deny_access
     store_location
-    redirect_to signin_path, :notice => "Please log in to access the page"
+    redirect_to signin_path, :notice => "Please sign in to access the page"
   end
 
   def redirect_back_or(default)
