@@ -13,6 +13,14 @@ module SessionsHelper
     @current_user ||= user_from_remember_token
   end
 
+  def current_user?(user)
+    user == current_user
+  end
+
+  def deny_access
+    redirect_to signin_path, :notice => "Please log in to access the page"
+  end
+
   def signed_in?
     !current_user.nil?
   end
