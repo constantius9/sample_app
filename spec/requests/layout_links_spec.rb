@@ -72,5 +72,13 @@ describe "LayoutLinks" do
       response.should_not have_selector('a', :href => user_path(@user),
                                         :content => "Delete")
     end
+
+    it "should have the proper microposts counter on the home page" do
+      visit root_path
+      count = @user.microposts.count
+      microposts_count = %Q/#{count} #{if count > 1 then "microposts" else "micropost" end}/
+      response.should have_selector('span', :class => "microposts",
+                                    :content => microposts_count)
+    end
   end
 end
