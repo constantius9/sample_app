@@ -1,7 +1,14 @@
-<%= form_for @micropost do |f| %>
+<%= form_for @micropost, :name => "micropost" do |f| %>
   <%= render 'shared/error_messages', :object => f.object %>
-  <div class="field">
-    <%= f.text_area :content %>
+  <div class="field" id="micropost_content">
+    <%= f.text_area :content, 
+      :onKeyDown => %Q/countChars(document.getElementById("micropost_content").children[0], 
+        document.getElementById("rem_chars").children[0], 140)/, 
+      :onKeyUp => %Q/countChars(document.getElementById("micropost_content").children[0], 
+        document.getElementById("rem_chars").children[0], 140)/ %>
+  </div>
+  <div class="label" id="rem_chars">
+    <label name="rem_chars">140</label>
   </div>
   <div class="actions">
     <%= f.submit "Submit" %>
