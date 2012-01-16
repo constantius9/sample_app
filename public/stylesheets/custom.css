@@ -244,3 +244,9 @@ form.new_micropost textarea {
   height: 4em;
   margin-bottom: 0;
 }
+
+form.new_micropost div#rem_chars {
+  float: right;
+  font-size: 18px;
+  padding-right: 38px;
+}
