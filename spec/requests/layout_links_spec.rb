@@ -80,5 +80,14 @@ describe "LayoutLinks" do
       response.should have_selector('span', :class => "microposts",
                                     :content => microposts_count)
     end
+
+    it "should not show a delete link for other's microposts" do
+      another_user = Factory(:user, 
+                             :name => "Another User", 
+                             :email => "another@example.com")
+      visit user_path(:id => another_user)
+      response.should_not have_selector('a', :href => "microposts", 
+                                        :content => "delete")
+    end
   end
 end
