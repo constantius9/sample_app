@@ -95,4 +95,29 @@ describe MicropostsController do
       end
     end
   end
+
+  describe "GET 'index'" do
+
+    before(:each) do
+      @user = Factory(:user)
+      @microposts = []
+      50.times do
+        @microposts << Factory(:micropost, :user => @user, 
+                               :content => Factory.next(:content))
+      end
+    end
+
+    it "should be successfull" do
+      get :index, :user_id => @user.id
+      response.should be_success
+    end
+
+    it "should contain 10 most recent user's microposts" do
+      get :index, :user_id => @user.id
+      for mc in @microposts[40..49]
+        response.should have_selector("span", :class => "content",
+                                      :content => mc[:content])
+      end
+    end
+  end
 end
