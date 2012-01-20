@@ -102,4 +102,31 @@ describe "Users" do
       end
     end
   end
+
+  describe "follow/unfollow" do
+
+    before(:each) do
+      @user = Factory(:user)
+      @other_user = Factory(:user, :email => Factory.next(:email))
+    end
+
+    it "should follow the user on 'follow' button press" do
+      lambda do
+        integration_sign_in @user
+        visit user_path(@other_user)
+        click_button "Follow"
+        response.should render_template('users/show')
+      end.should change(Relationship, :count).by(1)
+    end
+
+    it "should unfollow the user on 'unfollow' button press" do
+      @user.follow!(@other_user)
+      lambda do
+        integration_sign_in @user
+        visit user_path(@other_user)
+        click_button "Unfollow"
+        response.should render_template('users/show')
+      end.should change(Relationship, :count).by(-1)
+    end
+  end
 end
