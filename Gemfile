@@ -8,6 +8,7 @@ gem 'rails', '3.0.11'
 gem 'sqlite3', '1.3.3'
 gem 'gravatar_image_tag'
 gem 'will_paginate', '3.0.pre2'
+gem 'jquery-rails', '>= 1.0.12'
 
 group :development do
   gem 'rspec-rails', '2.6.1'
