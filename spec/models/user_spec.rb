@@ -207,6 +207,15 @@ describe User do
       @user.follow!(@followed)
       @followed.followers.should include(@user)
     end
+
+    it "should destroy associated relationships when destroying user" do
+      @user.follow!(@followed)
+      other_user = Factory(:user, :email => Factory.next(:email))
+      other_user.follow!(@user)
+      @user.destroy
+      @followed.relationships.find_by_follower_id(@user.id).should be_nil
+      other_user.relationships.find_by_followed_id(@user.id).should be_nil
+    end
   end
 
   describe "micropost associations" do
