@@ -116,6 +116,7 @@ describe "Users" do
         visit user_path(@other_user)
         click_button "Follow"
         response.should render_template('users/show')
+        response.should have_selector("span", :id => "followers", :content => "1 follower")
       end.should change(Relationship, :count).by(1)
     end
 
@@ -126,6 +127,7 @@ describe "Users" do
         visit user_path(@other_user)
         click_button "Unfollow"
         response.should render_template('users/show')
+        response.should have_selector("span", :id => "followers", :content => "0 followers")
       end.should change(Relationship, :count).by(-1)
     end
   end
